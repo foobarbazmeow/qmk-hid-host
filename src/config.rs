@@ -17,6 +17,8 @@ pub struct Device {
     #[serde(serialize_with = "hex_to_string", deserialize_with = "string_to_hex")]
     pub product_id: u16,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<u16>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub usage: Option<u16>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub usage_page: Option<u16>,
@@ -36,11 +38,12 @@ pub fn load_config(path: PathBuf) -> &'static Config {
     let default_config = Config {
         devices: vec![Device {
             name: None,
-            product_id: 0x0844,
+            product_id: 0x0,
+            vendor_id: Some(57638),
             usage: None,
             usage_page: None,
         }],
-        layouts: vec!["en".to_string()],
+        layouts: vec!["ABC".to_string(),"Russian".to_string()],
         reconnect_delay: None,
     };
 
